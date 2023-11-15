@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+
+import './multi_manager/flick_multi_player.dart';
 import '../../feed_player/multi_manager/flick_multi_manager.dart';
 import '../data/mock_data.dart';
 import '../services/video_service.dart';
-import './multi_manager/flick_multi_player.dart';
 
 class ShortVideoPlayer extends StatefulWidget {
   const ShortVideoPlayer({Key? key}) : super(key: key);
@@ -25,11 +27,20 @@ class ShortVideoPlayerState extends State<ShortVideoPlayer> {
   }
 
   Future<void> getVideoData() async {
-    List<String> paths = await Future.wait([
-      for (var data in shortVideoMockData['items'])
-        VideoService.getVideoPath(data['trailer_url'])
-    ]);
-    items.addAll(paths);
+    if (kIsWeb) {
+      final paths = <String>[];
+      for (var data in shortVideoWebData['items'])
+        paths.add(data['trailer_url']);
+
+      items.addAll(paths);
+    } else {
+      List<String> paths = await Future.wait([
+        for (var data in shortVideoMockData['items'])
+          VideoService.getVideoPath(data['trailer_url'])
+      ]);
+      items.addAll(paths);
+    }
+
     if (mounted) setState(() {});
   }
 

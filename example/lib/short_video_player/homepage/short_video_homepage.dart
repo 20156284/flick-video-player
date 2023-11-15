@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+
 import '../data/mock_data.dart';
 import '../services/video_service.dart';
 import '../short_video_player/short_video_player.dart';
@@ -18,9 +20,13 @@ class _ShortVideoHomePageState extends State<ShortVideoHomePage> {
   @override
   void initState() {
     super.initState();
-    deleteExistingData().then((value) {
-      saveVideosLocally();
-    });
+    if (kIsWeb) {
+      isDownloading = false;
+    } else {
+      deleteExistingData().then((value) {
+        saveVideosLocally();
+      });
+    }
   }
 
   Future<void> deleteExistingData() async {

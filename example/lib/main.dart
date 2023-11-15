@@ -3,12 +3,9 @@ import 'package:example/custom_orientation_player/custom_orientation_player.dart
 import 'package:example/feed_player/feed_player.dart';
 import 'package:example/short_video_player/homepage/short_video_homepage.dart';
 import 'package:example/web_video_player/web_video_player.dart';
-import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
 
 import './landscape_player/landscape_player.dart';
-
 import 'default_player/default_player.dart';
 
 void main() => runApp(MyApp());
@@ -66,7 +63,8 @@ class _ExamplesState extends State<Examples> {
 
   @override
   Widget build(BuildContext context) {
-    return kIsWeb ? _buildWebView() : _buildMobileView();
+    // return kIsWeb ? _buildWebView() : _buildMobileView();
+    return _buildMobileView();
   }
 
   Widget _buildWebView() {
