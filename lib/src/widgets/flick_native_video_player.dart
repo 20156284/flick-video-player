@@ -1,3 +1,4 @@
+import 'package:flick_video_player/src/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -16,6 +17,14 @@ class FlickNativeVideoPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return PlatformUtils.isMobile ? _buildMobile() : _buildDesktopOrWeb();
+  }
+
+  Widget _buildMobile() {
+    return Container();
+  }
+
+  Widget _buildDesktopOrWeb() {
     VideoPlayer videoPlayer = VideoPlayer(videoPlayerController!);
 
     double? videoHeight = videoPlayerController?.value.size.height;

@@ -1,8 +1,8 @@
 import 'package:example/utils/mock_data.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 import 'package:video_player/video_player.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class DefaultPlayer extends StatefulWidget {
   DefaultPlayer({Key? key}) : super(key: key);
@@ -17,8 +17,8 @@ class _DefaultPlayerState extends State<DefaultPlayer> {
   void initState() {
     super.initState();
     flickManager = FlickManager(
-      videoPlayerController: VideoPlayerController.network(
-        mockData["items"][0]["trailer_url"],
+      videoPlayerController: VideoPlayerController.networkUrl(
+        Uri.parse(mockData["items"][0]["trailer_url"]),
         closedCaptionFile: _loadCaptions(),
       ),
     );
@@ -46,7 +46,7 @@ class _DefaultPlayerState extends State<DefaultPlayer> {
   //     print('Failed to get subtitles for ${e}');
   //     return SubRipCaptionFile('');
   //   }
-  //}
+  //}基本
 
   @override
   void dispose() {
